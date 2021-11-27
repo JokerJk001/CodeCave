@@ -13,18 +13,35 @@
             <Style TargetType="Frame" x:Key="frameStyle">
                 <Setter Property="Padding" Value="5"/>
                 <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
+                <Setter Property="OutlineColor" Value="LightGray"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="PlaceholderColor" Value="DarkGray"/>
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="PlaceholderColor" Value="DarkGray"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     
     <StackLayout Padding="10,5">
-        <Label Text="Add New Note" FontSize="Body"/>
+        
+        <Label Text="Add New Note" 
+               FontAttributes="Bold" FontSize="Body"/>
 
+        <!--#region Title View-->
         <Frame Style="{StaticResource frameStyle}">
             <Entry Placeholder="Write your title here.*"
                 Text="{Binding Title}" MaxLength="30"/>
         </Frame>
 
+        <!--#region Detail View-->
         <Frame Style="{StaticResource frameStyle}" HeightRequest="180">
             <Editor Placeholder="Write your details here..*" 
                 Text="{Binding Detail}" AutoSize="TextChanges"/>
@@ -34,15 +51,19 @@
         <Frame Margin="5,0" Padding="5"
             IsVisible="{Binding ShowImageView}"
             CornerRadius="5" HorizontalOptions="End"
-            xct:TouchEffect.LongPressCommand="{Binding RemoveImageCmd}">
+            xct:TouchEffect.LongPressCommand="{Binding RemoveImageCmd}"
+            Style="{StaticResource frameStyle}">
             <Image Source="{Binding ImagePath}" HeightRequest="230"/>
         </Frame>
 
+        <!--#region Add Image Btn-->
         <Button Text="Add Image" Command="{Binding PickImageCmd}"/>
 
+        <!--#region Time Set View-->
         <Grid ColumnDefinitions="auto, auto, *" RowDefinitions="auto, auto">
             <Label Text="Recieve notification" VerticalOptions="Center"/>
-            <Switch Grid.Column="1" IsToggled="{Binding CanRecieveNotification}"/>
+            <Switch Grid.Column="1" IsToggled="{Binding CanRecieveNotification}"
+                ThumbColor="DodgerBlue" OnColor="LightBlue"/>
 
             <Frame Grid.Row="1" Style="{StaticResource frameStyle}" 
                    Margin="10,0" Padding="10"
@@ -50,14 +71,17 @@
                    Grid.ColumnSpan="3">
                 <Grid ColumnDefinitions="*, *" RowDefinitions="auto, auto">
                     <Label Text="Select Date"/>
-                    <DatePicker Grid.Row="1" Date="{Binding Date}" Format="ddd MMM yyyy"/>
+                    <DatePicker Grid.Row="1" Date="{Binding Date}" 
+                        TextColor="Black" Format="ddd MMM yyyy"/>
                     
                     <Label Grid.Column="1" Text="Select Time"/>
-                    <TimePicker Grid.Column="1" Grid.Row="1" Time="{Binding Time}" Format="HH:mm"/>
+                    <TimePicker Grid.Column="1" Grid.Row="1" Time="{Binding Time}" 
+                        TextColor="Black" Format="HH:mm"/>
                 </Grid>
             </Frame>
         </Grid>
 
+        <!--#region Save Btn-->
         <Button Text="Save" VerticalOptions="EndAndExpand" Command="{Binding SaveNoteCmd}"/>
     </StackLayout>
 </ContentPage>
