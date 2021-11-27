@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CodeCave.View.NoteTaskHomePg"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icon="clr-namespace:CodeCave.Resources"
+    xmlns:vm="clr-namespace:CodeCave.ViewModel"
+    xmlns:model="clr-namespace:CodeCave.Model"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="notepg"
+    x:DataType="vm:NoteTaskHomeVM">
+
+    <ContentPage.Effects>
+        <xct:LifecycleEffect Loaded="LifecycleEffect_Loaded"/>
+    </ContentPage.Effects>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding LoadPageCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="MDI" Glyph="{x:Static icon:MaterialDesignIcons.PlusCircle}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <CollectionView Grid.Row="1" Margin="5,10"
+            ItemsSource="{Binding NotesCollection}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Note">
+                    <Frame
+                        Padding="10,15,10,5"
+                        CornerRadius="10">
+                        <StackLayout>
+                            <Label FontAttributes="Bold" FontSize="Body"
+                                Text="{Binding Title}" />
+
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="250"
+                                IsVisible="{Binding CanShowImage}"
+                                Source="{Binding ImagePath}" />
+                            <Label Text="{Binding Detail}" FontSize="Medium"/>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static icon:MaterialDesignIcons.Bell}" 
+                                   IsVisible="{Binding CanSendNotification}"
+                                   FontSize="Body" FontFamily="MDI"/>
+
+                                <Label Text="{x:Static icon:MaterialDesignIcons.BellAlert}" 
+                                   IsVisible="{Binding RecievedNotification}"
+                                   FontSize="Body" FontFamily="MDI"/>
+                            </StackLayout>
+
+                            <Label Text="{Binding Date, StringFormat='Date: {0}'}" />
+                            <Label Text="{Binding Time, StringFormat='Time: {0}'}" />
+
+                            <Button Text="Delete" Margin="25,0"
+                                    Command="{Binding Source={x:Reference notepg}, Path=BindingContext.DeleteNoteCommand}"
+                                    CommandParameter="{Binding .}"/>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <StackLayout>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Nothing to show..¯\_(ツ)_/¯"
+                        VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

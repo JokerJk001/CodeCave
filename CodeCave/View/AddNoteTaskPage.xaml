@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:viewmodel="clr-namespace:CodeCave.ViewModel"
+    x:DataType="viewmodel:AddNoteTaskViewModel"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Class="CodeCave.View.AddNoteTaskPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame" x:Key="frameStyle">
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <StackLayout Padding="10,5">
+        <Label Text="Add New Note" FontSize="Body"/>
+
+        <Frame Style="{StaticResource frameStyle}">
+            <Entry Placeholder="Write your title here.*"
+                Text="{Binding Title}" MaxLength="30"/>
+        </Frame>
+
+        <Frame Style="{StaticResource frameStyle}" HeightRequest="180">
+            <Editor Placeholder="Write your details here..*" 
+                Text="{Binding Detail}" AutoSize="TextChanges"/>
+        </Frame>
+        
+        <!-- ImageView -->
+        <Frame Margin="5,0" Padding="5"
+            IsVisible="{Binding ShowImageView}"
+            CornerRadius="5" HorizontalOptions="End"
+            xct:TouchEffect.LongPressCommand="{Binding RemoveImageCmd}">
+            <Image Source="{Binding ImagePath}" HeightRequest="230"/>
+        </Frame>
+
+        <Button Text="Add Image" Command="{Binding PickImageCmd}"/>
+
+        <Grid ColumnDefinitions="auto, auto, *" RowDefinitions="auto, auto">
+            <Label Text="Recieve notification" VerticalOptions="Center"/>
+            <Switch Grid.Column="1" IsToggled="{Binding CanRecieveNotification}"/>
+
+            <Frame Grid.Row="1" Style="{StaticResource frameStyle}" 
+                   Margin="10,0" Padding="10"
+                   IsVisible="{Binding CanRecieveNotification}"
+                   Grid.ColumnSpan="3">
+                <Grid ColumnDefinitions="*, *" RowDefinitions="auto, auto">
+                    <Label Text="Select Date"/>
+                    <DatePicker Grid.Row="1" Date="{Binding Date}" Format="ddd MMM yyyy"/>
+                    
+                    <Label Grid.Column="1" Text="Select Time"/>
+                    <TimePicker Grid.Column="1" Grid.Row="1" Time="{Binding Time}" Format="HH:mm"/>
+                </Grid>
+            </Frame>
+        </Grid>
+
+        <Button Text="Save" VerticalOptions="EndAndExpand" Command="{Binding SaveNoteCmd}"/>
+    </StackLayout>
+</ContentPage>
