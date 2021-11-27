@@ -5,7 +5,8 @@
     xmlns:viewmodel="clr-namespace:CodeCave.ViewModel"
     x:DataType="viewmodel:AddNoteTaskViewModel"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    x:Class="CodeCave.View.AddNoteTaskPage">
+    x:Class="CodeCave.View.AddNoteTaskPage"
+    BackgroundColor="White">
 
     <ContentPage.Resources>
         <ResourceDictionary>
