@@ -36,6 +36,7 @@ namespace CodeCaveConsole
             Console.Clear(); */
             #endregion
 
+            #region MyRegion
             //1. // Explain cw Using directive.
             Console.WriteLine("Welcome to the Code Cave. C# Basics 101 survival skills.");
 
@@ -56,14 +57,44 @@ namespace CodeCaveConsole
 
 
             // Lets Code Now
-            string name = GreetMe();
+            /*string name = GreetMe();
             Console.WriteLine($"Welcome {name}");
             PrintAge();
-            PrintUserInfo(name);
-            SelectFavouriteMovie();
+            PrintUserInfo(name);*/
+            /*SelectFavouriteMovie();
+            Console.ReadKey();*/
+            #endregion
+
+            Console.WriteLine("Hi Please enter your Password.");
+            string password = Console.ReadLine();
+            VerifyPassword(password);
             Console.ReadKey();
         }
 
+        private static void VerifyPassword(string password)
+        {
+            if (!string.IsNullOrWhiteSpace(password))
+            {
+                if (password.Equals(Helper.MyPassword))
+                {
+                    Console.WriteLine("The password entered is correct.");
+                }
+                else if (password == "admin")
+                {
+                    Console.WriteLine("Welcome Admin");
+                }
+                else
+                {
+                    Console.WriteLine("User password incorrect!");
+                } 
+            }
+            else
+            {
+                Console.WriteLine("Enmty field detected!");
+            }
+        }
+
+        #region Old Code
         #region return Type
         // return Type
         private static string GreetMe()
@@ -116,7 +147,7 @@ namespace CodeCaveConsole
             string movieString = Console.ReadLine();
 
             //ex 1.
-            var movie = list.FirstOrDefault(m => m == movieString);
+            var movie = list.FirstOrDefault(m => m.ToLowerInvariant() == movieString.ToLowerInvariant().Trim());
             // ex 2. 
             /*foreach (var item in list)
             {
@@ -127,30 +158,33 @@ namespace CodeCaveConsole
                 }
             }*/
 
-            /*try
-            {*/
-            if (movie != null && !movie.Equals("Joker"))
+            try
             {
-                Console.WriteLine($"Movie Selected == {movie}");
+                if (movie != null && !movie.Equals("Joker"))
+                {
+                    Console.WriteLine($"Movie Selected == {movie}");
+                }
+                else if (movie != null && movie.Equals("Joker"))
+                {
+                    Console.WriteLine($"You're Cool. 100%");
+                }
+                else
+                {
+                    // Use break Points to find why it crashes.
+                    throw new Exception($"Selected movie: {movie} not found. (404):)");
+                }
             }
-            else if (movie != null && movie.Equals("Joker"))
-            {
-                Console.WriteLine($"You're Cool. 100%");
-            }
-            else
-            {
-                // Use break Points to find why it crashes.
-                throw new Exception($"Selected movie: {movie} not found. (404):)");
-            }
-            /*}
             catch (Exception ex)
             {
                 Console.WriteLine($"Error:--------------------- {ex.Message}");
             }
-            finally
+            /*finally
             {
                 Console.WriteLine("Crash or not I'm executed (☞ﾟヮﾟ)☞");
             }*/
-        }
+        } 
+        #endregion
+
     }
+
 }

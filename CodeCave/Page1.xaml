@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CodeCave.Page1">
+
+    <StackLayout VerticalOptions="Center" Padding="10">
+        <Label Text="Code Cave Class 101" HorizontalOptions="Center"/>
+
+        <Entry x:Name="entry1" Placeholder="Username" 
+               TextColor="Green"/>
+        <Entry x:Name="entry2" PlaceholderColor="Blue"
+               Placeholder="Password" IsPassword="True"/>
+        <Button Text="Login" Clicked="Button_Clicked"/>
+
+        <Frame>
+            <StackLayout>
+                <Label Text="output:" FontSize="Micro"/>
+                <Label x:Name="outputLabel"/>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+        
+</ContentPage>
