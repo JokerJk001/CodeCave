@@ -83,7 +83,7 @@
                     Grid.ColumnSpan="3"
                     Margin="10,0"
                     Padding="10"
-                    IsVisible="true"
+                    IsVisible="{Binding CanRecieveNotification}"
                     Style="{StaticResource frameStyle}">
                     <Grid ColumnDefinitions="*, *" RowDefinitions="auto, auto">
                         <Label Text="Select Date" />
