@@ -1,87 +1,114 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:viewmodel="clr-namespace:CodeCave.ViewModel"
-    x:DataType="viewmodel:AddNoteTaskViewModel"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+<ContentPage
     x:Class="CodeCave.View.AddNoteTaskPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:CodeCave.ViewModel"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:DataType="viewmodel:AddNoteTaskViewModel"
     BackgroundColor="White">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style TargetType="Frame" x:Key="frameStyle">
-                <Setter Property="Padding" Value="5"/>
-                <Setter Property="CornerRadius" Value="5"/>
-                <Setter Property="BackgroundColor" Value="WhiteSmoke"/>
-                <Setter Property="OutlineColor" Value="LightGray"/>
+            <Style x:Key="frameStyle" TargetType="Frame">
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="BackgroundColor" Value="WhiteSmoke" />
+                <Setter Property="OutlineColor" Value="LightGray" />
             </Style>
             <Style TargetType="Label">
-                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="TextColor" Value="Black" />
             </Style>
             <Style TargetType="Entry">
-                <Setter Property="TextColor" Value="Black"/>
-                <Setter Property="PlaceholderColor" Value="DarkGray"/>
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="PlaceholderColor" Value="DarkGray" />
             </Style>
             <Style TargetType="Editor">
-                <Setter Property="TextColor" Value="Black"/>
-                <Setter Property="PlaceholderColor" Value="DarkGray"/>
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="PlaceholderColor" Value="DarkGray" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <StackLayout Padding="10,5">
-        
-        <Label Text="Add New Note" 
-               FontAttributes="Bold" FontSize="Body"/>
 
-        <!--#region Title View-->
-        <Frame Style="{StaticResource frameStyle}">
-            <Entry Placeholder="Write your title here.*"
-                Text="{Binding Title}" MaxLength="30"/>
-        </Frame>
+    <ScrollView>
+        <StackLayout Padding="10,5">
 
-        <!--#region Detail View-->
-        <Frame Style="{StaticResource frameStyle}" HeightRequest="180">
-            <Editor Placeholder="Write your details here..*" 
-                Text="{Binding Detail}" AutoSize="TextChanges"/>
-        </Frame>
-        
-        <!-- ImageView -->
-        <Frame Margin="5,0" Padding="5"
-            IsVisible="{Binding ShowImageView}"
-            CornerRadius="5" HorizontalOptions="End"
-            xct:TouchEffect.LongPressCommand="{Binding RemoveImageCmd}"
-            Style="{StaticResource frameStyle}">
-            <Image Source="{Binding ImagePath}" HeightRequest="230"/>
-        </Frame>
+            <Label
+                FontAttributes="Bold"
+                FontSize="Body"
+                Text="Add New Note" />
 
-        <!--#region Add Image Btn-->
-        <Button Text="Add Image" Command="{Binding PickImageCmd}"/>
-
-        <!--#region Time Set View-->
-        <Grid ColumnDefinitions="auto, auto, *" RowDefinitions="auto, auto">
-            <Label Text="Recieve notification" VerticalOptions="Center"/>
-            <Switch Grid.Column="1" IsToggled="{Binding CanRecieveNotification}"
-                ThumbColor="DodgerBlue" OnColor="LightBlue"/>
-
-            <Frame Grid.Row="1" Style="{StaticResource frameStyle}" 
-                   Margin="10,0" Padding="10"
-                   IsVisible="{Binding CanRecieveNotification}"
-                   Grid.ColumnSpan="3">
-                <Grid ColumnDefinitions="*, *" RowDefinitions="auto, auto">
-                    <Label Text="Select Date"/>
-                    <DatePicker Grid.Row="1" Date="{Binding Date}" 
-                        TextColor="Black" Format="ddd MMM yyyy"/>
-                    
-                    <Label Grid.Column="1" Text="Select Time"/>
-                    <TimePicker Grid.Column="1" Grid.Row="1" Time="{Binding Time}" 
-                        TextColor="Black" Format="HH:mm"/>
-                </Grid>
+            <!--#region Title View-->
+            <Frame Style="{StaticResource frameStyle}">
+                <Entry
+                    MaxLength="30"
+                    Placeholder="Write your title here.*"
+                    Text="{Binding Title}" />
             </Frame>
-        </Grid>
 
-        <!--#region Save Btn-->
-        <Button Text="Save" VerticalOptions="EndAndExpand" Command="{Binding SaveNoteCmd}"/>
-    </StackLayout>
+            <!--#region Detail View-->
+            <Frame HeightRequest="180" Style="{StaticResource frameStyle}">
+                <Editor
+                    AutoSize="TextChanges"
+                    Placeholder="Write your details here..*"
+                    Text="{Binding Detail}" />
+            </Frame>
+
+            <!--  ImageView  -->
+            <Frame
+                Margin="5,0"
+                Padding="5"
+                xct:TouchEffect.LongPressCommand="{Binding RemoveImageCmd}"
+                CornerRadius="5"
+                HorizontalOptions="End"
+                IsVisible="{Binding ShowImageView}"
+                Style="{StaticResource frameStyle}">
+                <Image HeightRequest="230" Source="{Binding ImagePath}" />
+            </Frame>
+
+            <!--#region Add Image Btn-->
+            <Button Command="{Binding PickImageCmd}" Text="Add Image" />
+
+            <!--#region Time Set View-->
+            <Grid ColumnDefinitions="auto, auto, *" RowDefinitions="auto, auto">
+                <Label Text="Recieve notification" VerticalOptions="Center" />
+                <Switch
+                    Grid.Column="1"
+                    IsToggled="{Binding CanRecieveNotification}"
+                    OnColor="LightBlue"
+                    ThumbColor="DodgerBlue" />
+
+                <Frame
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    Margin="10,0"
+                    Padding="10"
+                    IsVisible="true"
+                    Style="{StaticResource frameStyle}">
+                    <Grid ColumnDefinitions="*, *" RowDefinitions="auto, auto">
+                        <Label Text="Select Date" />
+                        <DatePicker
+                            Grid.Row="1"
+                            Date="{Binding Date}"
+                            Format="ddd MMM yyyy"
+                            TextColor="Black" />
+
+                        <Label Grid.Column="1" Text="Select Time" />
+                        <TimePicker
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Format="HH:mm"
+                            TextColor="Black"
+                            Time="{Binding Time}" />
+                    </Grid>
+                </Frame>
+            </Grid>
+
+            <!--#region Save Btn-->
+            <Button
+                Command="{Binding SaveNoteCmd}"
+                Text="Save"
+                VerticalOptions="EndAndExpand" />
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

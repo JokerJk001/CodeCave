@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeCave.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace CodeCave
         public Page1()
         {
             InitializeComponent();
+            entry0.Text = "Welcome";
         }
 
         private void Button_Clicked(object sender, EventArgs e)
@@ -28,6 +30,18 @@ namespace CodeCave
                 outputLabel.Text = "Something went wrong.😐";
                 outputLabel.TextColor = Color.Red;
             }
+        }
+
+        private async void Button_Clicked_1(object sender, EventArgs e)
+        {
+            if (IsBusy)
+            {
+                outputLabel.Text = "Did noy execute!";
+                return;
+            }
+            IsBusy = true;
+            await Navigation.PushAsync(new AddNoteTaskPage());
+            IsBusy = false;
         }
     }
 }
