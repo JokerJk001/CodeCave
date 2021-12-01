@@ -54,6 +54,7 @@
                     Text="{Binding Detail}" />
             </Frame>
 
+            
             <!--  ImageView  -->
             <Frame
                 Margin="5,0"
@@ -71,13 +72,16 @@
 
             <!--#region Time Set View-->
             <Grid ColumnDefinitions="auto, auto, *" RowDefinitions="auto, auto">
-                <Label Text="Recieve notification" VerticalOptions="Center" />
+                <Label Grid.Row="0" Grid.Column="0" Text="Recieve notification" VerticalOptions="Center" />
                 <Switch
+                    Grid.Row="0"
                     Grid.Column="1"
                     IsToggled="{Binding CanRecieveNotification}"
                     OnColor="LightBlue"
                     ThumbColor="DodgerBlue" />
 
+                <BoxView Grid.Column="2" BackgroundColor="Aqua"/>
+                
                 <Frame
                     Grid.Row="1"
                     Grid.ColumnSpan="3"
