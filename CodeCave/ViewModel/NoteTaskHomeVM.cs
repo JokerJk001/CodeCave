@@ -43,10 +43,9 @@ namespace CodeCave.ViewModel
 
         private async Task RefreshDataAsync()
         {
-            if (IsBusy) return;
-            IsBusy = true;
+            IsLoading = true;
             await GetNotes();
-            IsBusy = false;
+            IsLoading = false;
         }
         public async Task GetNotes()
         {
