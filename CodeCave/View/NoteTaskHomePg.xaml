@@ -16,11 +16,7 @@
     </ContentPage.Effects>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding LoadPageCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource FontFamily="MDI" Glyph="{x:Static icon:MaterialDesignIcons.PlusCircle}" />
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
+        <ToolbarItem Command="{Binding LoadPageCommand}" Text="Add Task"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Resources>
@@ -32,59 +28,61 @@
     </ContentPage.Resources>
 
     <StackLayout>
-        <CollectionView Grid.Row="1" Margin="5,10"
+        <RefreshView Command="{Binding RefreshDataCommand}" IsRefreshing="{Binding IsLoading}">
+            <CollectionView Grid.Row="1" Margin="5,10"
             ItemsSource="{Binding NotesCollection}">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Note">
-                    <Frame
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Note">
+                        <Frame
                         BackgroundColor="WhiteSmoke"
                         OutlineColor="LightGray"
                         Padding="10,15,10,5"
                         CornerRadius="5">
-                        <StackLayout>
-                            <Label FontAttributes="Bold" FontSize="Body"
+                            <StackLayout>
+                                <Label FontAttributes="Bold" FontSize="Body"
                                 Text="{Binding Title}" />
 
-                            <Image
+                                <Image
                                 Aspect="AspectFill"
                                 HeightRequest="250"
                                 IsVisible="{Binding CanShowImage}"
                                 Source="{Binding ImagePath}" />
-                            <Label Text="{Binding Detail}" FontSize="Medium"/>
+                                <Label Text="{Binding Detail}" FontSize="Medium"/>
 
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static icon:MaterialDesignIcons.Bell}" 
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{x:Static icon:MaterialDesignIcons.Bell}" 
                                    IsVisible="{Binding CanSendNotification}"
                                    FontSize="Body" FontFamily="MDI"/>
 
-                                <Label Text="{x:Static icon:MaterialDesignIcons.BellAlert}" 
+                                    <Label Text="{x:Static icon:MaterialDesignIcons.BellAlert}" 
                                    IsVisible="{Binding RecievedNotification}"
                                    FontSize="Body" FontFamily="MDI"/>
-                            </StackLayout>
+                                </StackLayout>
 
-                            <Label Text="{Binding Date, StringFormat='Date: {0}'}" />
-                            <Label Text="{Binding Time, StringFormat='Time: {0}'}" />
+                                <Label Text="{Binding Date, StringFormat='Date: {0}'}" />
+                                <Label Text="{Binding Time, StringFormat='Time: {0}'}" />
 
-                            <Button Text="Delete" Margin="25,0"
+                                <Button Text="Delete" Margin="25,0"
                                     Command="{Binding Source={x:Reference notepg}, Path=BindingContext.DeleteNoteCommand}"
                                     CommandParameter="{Binding .}"/>
-                        </StackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.EmptyView>
-                <StackLayout>
-                    <Label
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label
                         FontAttributes="Bold"
                         FontSize="Medium"
                         HorizontalOptions="CenterAndExpand"
                         Text="Nothing to show..¯\_(ツ)_/¯"
                         VerticalOptions="CenterAndExpand" />
-                </StackLayout>
-            </CollectionView.EmptyView>
-        </CollectionView>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
     </StackLayout>
 </ContentPage>

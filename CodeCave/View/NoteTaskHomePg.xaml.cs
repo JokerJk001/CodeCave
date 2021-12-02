@@ -15,6 +15,9 @@ namespace CodeCave.View
             MessagingCenter.Subscribe<AddNoteTaskViewModel>(this, "Refresh", async (sender) => await vm.GetNotes());
         }
 
-        private async void LifecycleEffect_Loaded(object sender, System.EventArgs e) => await vm.GetNotes();
+        private async void LifecycleEffect_Loaded(object sender, System.EventArgs e)
+        {
+            await vm.GetNotes();
+        }
     }
 }

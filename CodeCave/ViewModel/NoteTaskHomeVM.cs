@@ -14,6 +14,9 @@ namespace CodeCave.ViewModel
 {
     public class NoteTaskHomeVM : BaseVM
     {
+        private bool _IsLoading;
+        public bool IsLoading { get => _IsLoading; set => SetProperty(ref _IsLoading, value); }
+        public ICommand RefreshDataCommand => new AsyncCommand(RefreshDataAsync);
         public ICommand DeleteNoteCommand => new AsyncCommand<Note>(DeleteNoteAsync);
         public ICommand LoadPageCommand => new AsyncCommand(LoadPageAsync);
         public ObservableRangeCollection<Note> NotesCollection { get; set; } = new();
@@ -38,6 +41,13 @@ namespace CodeCave.ViewModel
             }
         }
 
+        private async Task RefreshDataAsync()
+        {
+            if (IsBusy) return;
+            IsBusy = true;
+            await GetNotes();
+            IsBusy = false;
+        }
         public async Task GetNotes()
         {
             List<Note> notes = await LocalData.GetNotesAsync();

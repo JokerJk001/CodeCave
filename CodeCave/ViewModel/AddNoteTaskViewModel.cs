@@ -83,6 +83,7 @@ namespace CodeCave.ViewModel
                     return;
                 }
 
+                 
                 await LocalData.InsertNewNoteAsync(ProcessNote());
                 await Application.Current.MainPage.Navigation.PopAsync();
                 SendMessage();
